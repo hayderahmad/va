@@ -12,6 +12,11 @@ defmodule Va.MyRouter do
     send_resp(conn, 200, "the sum is: #{String.to_integer(first) + String.to_integer(second)} \n")
   end
 
+  get "/alpaca/:symbol" do
+    {_, respBody} = Va.Alpaca.getSymbolData(symbol) |> JSON.encode()
+    send_resp(conn, 200, respBody)
+  end
+
   # forward "/users", to: UsersRouter
 
   match _ do
